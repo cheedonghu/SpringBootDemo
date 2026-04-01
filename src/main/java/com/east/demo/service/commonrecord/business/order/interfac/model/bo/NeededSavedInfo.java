@@ -1,0 +1,18 @@
+package com.east.demo.service.commonrecord.business.order.interfac.model.bo;
+
+
+import lombok.Data;
+
+/**
+ * 下单落表的最基本信息
+ * 账单信息
+ * 其他信息自行继承本类实现
+ *
+ * @author: east
+ * @date: 2023/11/25
+ */
+
+@Data
+public class NeededSavedInfo {
+
+}

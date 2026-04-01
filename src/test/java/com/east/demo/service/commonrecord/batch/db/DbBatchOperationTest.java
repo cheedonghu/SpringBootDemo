@@ -2,7 +2,7 @@ package com.east.demo.service.commonrecord.batch.db;
 
 import com.east.demo.persist.entity.base.LyOrderInfo;
 import com.east.demo.persist.mapper.custom.CustomLyOrderInfoMapper;
-import com.east.demo.service.commonrecord.order.imp.SpecialOrder;
+import com.east.demo.service.commonrecord.business.order.imp.SpecialOrder;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

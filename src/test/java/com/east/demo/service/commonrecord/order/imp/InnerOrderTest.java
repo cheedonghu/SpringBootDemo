@@ -1,6 +1,7 @@
 package com.east.demo.service.commonrecord.order.imp;
 
-import com.east.demo.service.commonrecord.order.imp.model.req.InnerOrderRequest;
+import com.east.demo.service.commonrecord.business.order.imp.InnerOrder;
+import com.east.demo.service.commonrecord.business.order.imp.model.req.InnerOrderRequest;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
