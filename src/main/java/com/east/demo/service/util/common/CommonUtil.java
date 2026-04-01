@@ -57,6 +57,32 @@ public class CommonUtil {
      */
     public static String base32Encode(long num) {
         StringBuilder base32Str = new StringBuilder();
+        // 数字不能超过32进制最大数：33554432
+        if (num > 33554432L) {
+            throw new RuntimeException("数字不能超过32进制最大数");
+        }
+        long quotient = num;
+        // 计算自定义字符32进制结果
+        while (quotient > 0) {
+            // 获取余数
+            long remainder = quotient % 32;
+            base32Str.append(CHARS_SOURCE_RANDOM.charAt(Math.toIntExact(remainder)));
+            // 将商代入下次计算
+            quotient /= 32;
+        }
+        String result = base32Str.toString();
+        // 返回5位字符，少了用第一个字符替代
+        return StrUtil.padPre(result, 5, CHARS_SOURCE_RANDOM.charAt(0));
+    }
+
+    /**
+     * 对数字进行自定义32进制加密，阿鹏原始算法
+     *
+     * @param num 需要转换的数字
+     * @return 结果为5位字符
+     */
+    public static String originBase32Encode(long num) {
+        StringBuilder base32Str = new StringBuilder();
         long quotient = num;
         // 计算自定义字符32进制结果
         while (quotient > 0) {

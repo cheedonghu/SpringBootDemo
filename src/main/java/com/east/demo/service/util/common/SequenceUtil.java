@@ -74,7 +74,11 @@ public class SequenceUtil {
      */
     public ArrayList<String> getTransferCode(String name, Integer size) {
         // 获取序列
-        LinkedBlockingQueue<Long> sequences = getSequences(name, size);
+//        LinkedBlockingQueue<Long> sequences = getSequences(name, size);
+        LinkedBlockingQueue<Long> sequences = new LinkedBlockingQueue<>();
+        sequences.add(1L);
+        sequences.add(2L);
+
         ArrayList<String> result = new ArrayList<>(sequences.size());
         // 转换为32进制转账码
         for (Long sequence : sequences) {
