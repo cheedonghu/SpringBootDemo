@@ -89,7 +89,7 @@ public class TreeNode implements Serializable {
     }
 
     public void serializeTree() {
-        try (FileOutputStream fileOutputStream = new FileOutputStream("TreeObject1.ser");
+        try (FileOutputStream fileOutputStream = new FileOutputStream("src/main/java/com/east/demo/other/algorithm/tree/TreeObject1.ser");
              ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream)) {
             objectOutputStream.writeObject(this);
             System.out.println("node serialize succeed");
@@ -100,7 +100,7 @@ public class TreeNode implements Serializable {
     }
 
     public static TreeNode deserializeTree() {
-        try (FileInputStream fileInputStream = new FileInputStream("TreeObject1.ser");
+        try (FileInputStream fileInputStream = new FileInputStream("src/main/java/com/east/demo/other/algorithm/tree/TreeObject1.ser");
              ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream)) {
             TreeNode root = (TreeNode) objectInputStream.readObject();
             root.printWholeTree();
@@ -110,6 +110,52 @@ public class TreeNode implements Serializable {
             System.out.println(e.getMessage());
             throw new BaseException();
         }
+    }
+
+    public static TreeNode simple() {
+        TreeNode root = new TreeNode(1);
+        root.left = new TreeNode(2);
+        root.right = new TreeNode(3);
+        root.left.left = new TreeNode(4);
+        root.left.right = new TreeNode(5);
+        root.right.left = new TreeNode(6);
+        root.right.right = new TreeNode(7);
+        return root;
+    }
+
+    public static TreeNode simple2() {
+        TreeNode root = new TreeNode(8);
+        root.left = new TreeNode(4);
+        root.right = new TreeNode(12);
+        root.left.left = new TreeNode(2);
+        root.left.right = new TreeNode(6);
+        root.right.left = new TreeNode(10);
+        root.right.right = new TreeNode(14);
+        root.left.left.left = new TreeNode(1);
+        root.left.left.right = new TreeNode(3);
+        root.left.right.left = new TreeNode(5);
+        root.left.right.right = new TreeNode(7);
+        root.right.left.left = new TreeNode(9);
+        root.right.left.right = new TreeNode(11);
+        root.right.right.left = new TreeNode(13);
+        root.right.right.right = new TreeNode(15);
+
+        return root;
+    }
+
+    public static TreeNode simple3() {
+        TreeNode root = new TreeNode(5);
+        root.left = new TreeNode(4);
+        root.right = new TreeNode(8);
+        root.left.left = new TreeNode(1);
+        root.left.right = new TreeNode(11);
+        root.right.left = null;
+        root.right.right = new TreeNode(9);
+        root.left.right.left = new TreeNode(2);
+        root.left.right.right = new TreeNode(7);
+
+
+        return root;
     }
 
 
