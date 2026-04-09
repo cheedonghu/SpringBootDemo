@@ -269,12 +269,76 @@ public class TreeTraversal {
 
     }
 
+    /**
+     * 二叉搜索树与双向链表
+     * 将树转为双向链表
+     * <p>
+     * 要求：空间复杂度
+     * O(1)（即在原树上操作），时间复杂度
+     * <p>
+     * 注意:
+     * 1.要求不能创建任何新的结点，只能调整树中结点指针的指向。当转化完成以后，树中节点的左指针需要指向前驱，树中节点的右指针需要指向后继
+     * 2.返回链表中的第一个节点的指针
+     * 3.函数返回的TreeNode，有左右指针，其实可以看成一个双向链表的数据结构
+     * 4.你不用输出双向链表，程序会根据你的返回值自动打印输出
+     * 输入描述：
+     * 二叉树的根节点
+     * 返回值描述：
+     * 双向链表的其中一个头节点。
+     * <p>
+     * 分析：
+     * 二叉搜索树->中序，有序i，递归(一次对次次对)
+     * 链表->
+     * O1->临时变量
+     * 基本问题：中序遍历
+     * 实现：在中序基础上，加两个变量pre和head，在原打印位置增加左右子树指向调整
+     * 当是叶子时：左边pre为空，右边不管，pre成自己继续递归。（等下一个节点中处理：pre.right=node) 这样还特别巧妙，在下一个node中处理上个right不会造成节点丢失
+     * pre代表前一个元素，前一个元素.right=当前节点，当前节点.left=前一个元素，pre更新为当前节点，继续递归
+     *
+     * @param pRootOfTree
+     * @return
+     */
+    TreeNode head = null;
+    TreeNode pre = null;
+
+    public TreeNode convert(TreeNode pRootOfTree) {
+        if (pRootOfTree == null) return pRootOfTree;
+        convertDfs(pRootOfTree);
+
+        return head;
+    }
+
+    private void convertDfs(TreeNode node) {
+        if (node == null) return;
+
+        convertDfs(node.left);
+        if (head == null) {
+            // 找到最小叶子，队列最左边，首元素
+            head = node;
+            pre = node;
+            head.left = null;
+        } else {
+            // 非首元素
+            // 开始调整指向
+            pre.right = node;
+            node.left = pre;
+            pre = node;
+        }
+
+        convertDfs(node.right);
+    }
+
     public static void main(String[] args) {
 
         TreeTraversal treeTraversal = new TreeTraversal();
-        TreeNode root = TreeNode.simple3();
+        TreeNode root = TreeNode.searchTree();
+        TreeNode head = treeTraversal.convert(root);
+        while (head != null) {
+            System.out.print(head.value + ", ");
+            head = head.right;
+        }
 
-        System.out.println(treeTraversal.hasPathSum(root, 22));
+        System.out.println();
 
     }
 
