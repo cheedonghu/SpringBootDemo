@@ -1,22 +1,19 @@
-package com.east.demo.service.commonrecord.business.check;
+package com.east.demo.service.commonrecord.business.check.checksouce;
 
-import com.east.demo.service.middle.kafka.KafkaProducerService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
+
 
 /**
- *
- * <p>
- *
- * @author: east
- * <p>
- * @date: 2026/4/1 21:18
+ * 对账模板
  */
-
 @Slf4j
 public abstract class AbstractCheck {
-    @Autowired
-    KafkaProducerService kafkaProducerService;
+
+    public void process() {
+        preCheck();
+        check();
+        postCheck();
+    }
 
     public abstract void preCheck();
 

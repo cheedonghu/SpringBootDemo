@@ -1,5 +1,7 @@
-package com.east.demo.service.commonrecord.business.check;
+package com.east.demo.service.commonrecord.business.check.checksouce;
 
+import com.east.demo.service.commonrecord.business.check.CheckTypeFactory;
+import com.east.demo.service.commonrecord.business.check.checktype.Check;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +15,7 @@ import org.springframework.stereotype.Service;
  */
 @Service
 @Slf4j
-public class HostCheck extends AbstractCheck {
+public class HostSourceCheck extends AbstractCheck {
     /**
      *
      */
@@ -27,7 +29,9 @@ public class HostCheck extends AbstractCheck {
      */
     @Override
     public void check() {
-        log.info("this is host check");
+        for (Check check : CheckTypeFactory.getProcessor()) {
+            check.hostCheck();
+        }
     }
 
     /**
