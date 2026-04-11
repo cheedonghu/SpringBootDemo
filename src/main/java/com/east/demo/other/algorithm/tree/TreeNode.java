@@ -170,5 +170,17 @@ public class TreeNode implements Serializable {
         return root;
     }
 
+    public static TreeNode symmetricalTree() {
+        TreeNode root = new TreeNode(8);
+        root.left = new TreeNode(6);
+        root.right = new TreeNode(8);
+        root.left.left = new TreeNode(5);
+        root.left.right = new TreeNode(7);
+        root.right.left = new TreeNode(7);
+        root.right.right = new TreeNode(5);
+
+        return root;
+    }
+
 
 }
