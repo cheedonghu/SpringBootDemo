@@ -158,6 +158,21 @@ public class TreeNode implements Serializable {
         return root;
     }
 
+    public static TreeNode simple4() {
+        TreeNode root = new TreeNode(1);
+        root.left = new TreeNode(2);
+        // root.right = new TreeNode(3);
+        root.left.left = new TreeNode(4);
+        root.left.right = new TreeNode(5);
+        // root.right.left = null;
+        // root.right.right = new TreeNode(9);
+        // root.left.right.left = new TreeNode(2);
+        // root.left.right.right = new TreeNode(7);
+
+
+        return root;
+    }
+
     public static TreeNode searchTree() {
         TreeNode root = new TreeNode(10);
         root.left = new TreeNode(6);
@@ -182,5 +197,22 @@ public class TreeNode implements Serializable {
         return root;
     }
 
+    public static TreeNode mergeTree1() {
+        TreeNode root = new TreeNode(1);
+        root.left = new TreeNode(3);
+        root.right = new TreeNode(2);
+        root.left.left = new TreeNode(5);
 
+        return root;
+    }
+
+    public static TreeNode mergeTree2() {
+        TreeNode root = new TreeNode(2);
+        root.left = new TreeNode(1);
+        root.right = new TreeNode(3);
+        root.left.right = new TreeNode(4);
+        root.right.right = new TreeNode(7);
+
+        return root;
+    }
 }
