@@ -1,7 +1,6 @@
 package com.east.demo.other.algorithm.backtrace;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -60,13 +59,58 @@ public class AllFormat {
         return state.size() == 3;
     }
 
+
+    /**
+     * 回溯基本模型
+     * 自己的公式
+     * 全排列——>回溯->N叉树
+     * 基本模型->全排列
+     *
+     * @return
+     */
+    public List<String> allFormat() {
+        String[] array = {"1", "2", "3"};
+        ArrayList<String> res = new ArrayList<>();
+        mybacktrace(array, res, "");
+        return res;
+    }
+
+    // private String temp="";
+    public void mybacktrace(String[] array, List<String> res, String temp) {
+        // 是否是解 :长度满足且没已经存在
+        if (temp.length() == array.length) {
+            res.add(temp);
+            return;
+        }
+
+
+        // N叉遍历
+        for (int j = 0; j < array.length; j++) {
+            // 是否可剪枝: 不能包含自己（每个元素只能选一次)
+            if (temp.contains(array[j])) {
+                continue;
+            }
+
+            temp = temp + array[j];
+
+            // 继续递归
+            mybacktrace(array, res, temp);
+            // 回溯
+            temp = temp.substring(0, temp.length() - 1);
+        }
+    }
+
     public static void main(String[] args) {
         AllFormat allFormat = new AllFormat();
-        ArrayList<String> state = new ArrayList<>();
-        List<String> choices = Arrays.asList("1", "2", "3", "4", "5");
-        ArrayList<List<String>> res = new ArrayList<>();
-        allFormat.backtrace(state, choices, res);
-        System.out.println(res.size());
+        // ArrayList<String> state = new ArrayList<>();
+        // List<String> choices = Arrays.asList("1", "2", "3", "4", "5");
+        // ArrayList<List<String>> res = new ArrayList<>();
+        // allFormat.backtrace(state, choices, res);
+        // System.out.println(res.size());
+
+        List<String> strings = allFormat.allFormat();
+        System.out.println(strings.toString());
+
     }
 
 }

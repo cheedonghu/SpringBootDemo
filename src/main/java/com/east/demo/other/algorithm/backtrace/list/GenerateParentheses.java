@@ -134,6 +134,118 @@ public class GenerateParentheses {
 
     }
 
+    /**
+     * 给出n对括号，请编写一个函数来生成所有的由n对括号组成的合法组合。
+     * 组合->穷举回溯
+     * 思路1：N叉树回溯
+     * 公式
+     * 可选集合: ["(",")"] * n
+     * 是否是解：状态string的长度为2n且左右括号个数不超限制
+     * 剪枝：用来保证组合合法->
+     * 1. 不能)开头
+     * 2. )的个数不能大于（
+     * 3. (和)的个数可以直接加i
+     * 3. 每个字符只能出现n次
+     * <p>
+     * <p>
+     * 思路二：二叉树
+     * 每次只有(,)两个分支
+     * 采用中序遍历，
+     *
+     * @param n
+     * @return
+     */
+    public ArrayList<String> generateParenthesis2(int n) {
+        // write code here
+        ArrayList<String> strings = new ArrayList<>();
+        for (int i = 0; i < n; i++) {
+            strings.add("(");
+        }
+        for (int i = 0; i < n; i++) {
+            strings.add(")");
+        }
+        String[] strings1 = strings.toArray(new String[0]);
+        ArrayList<String> res = new ArrayList<>();
+        myBacktrace2(strings1, res, "", 0, 0);
+        return res;
+    }
+
+    public void myBacktrace2(String[] collect, List<String> res, String temp, int left, int right) {
+        System.out.println("temp为： " + temp);
+        if (temp.length() == collect.length && left <= collect.length / 2 && right <= collect.length / 2) {
+            if (!res.contains(temp)) res.add(temp);
+            return;
+        }
+
+        for (int i = 0; i < collect.length; i++) {
+            if (temp.startsWith(")")) {
+                return;
+            } else if (left > collect.length / 2 || right > collect.length / 2) {
+                return;
+            } else if (right > left) {
+                return;
+            }
+
+            temp = temp + collect[i];
+            if (collect[i].equals("(")) {
+                left += 1;
+            } else {
+                right += 1;
+            }
+
+            myBacktrace2(collect, res, temp, left, right);
+
+            temp = temp.substring(0, temp.length() - 1);
+            if (collect[i].equals("(")) {
+                left -= 1;
+            } else {
+                right -= 1;
+            }
+        }
+
+
+    }
+
+    public ArrayList<String> generateParenthesis3(int n) {
+        // write code here
+        ArrayList<String> strings = new ArrayList<>();
+
+        myBacktrace3(n, strings, "", 0, 0);
+        return strings;
+    }
+
+    /**
+     * 这题不能看作纯n叉树，看作二叉树处理，因为只有( 和 )两种选择
+     * <p>
+     * 且是中序，左根右：(代表左子树
+     * 先左后右
+     * <p>
+     * 但还是有剪枝限制：
+     * left<n时才能继续遍历左子树
+     * right<left才能继续遍历右子树
+     *
+     * @param n
+     * @param res
+     * @param temp
+     * @param left
+     * @param right
+     */
+    public void myBacktrace3(int n, List<String> res, String temp, int left, int right) {
+        if (left == n && right == n) {
+            res.add(temp);
+            return;
+        }
+
+        if (left < n) {
+            myBacktrace3(n, res, temp + "(", left + 1, right);
+        }
+        if (right < left) {
+            myBacktrace3(n, res, temp + ")", left, right + 1);
+        }
+
+    }
+
+
     public static void main(String[] args) {
         GenerateParentheses generateParentheses = new GenerateParentheses();
 
@@ -153,7 +265,7 @@ public class GenerateParentheses {
 
         // 测试
         long start = System.currentTimeMillis();
-        List<String> res = generateParentheses.generateParenthesis(3);
+        List<String> res = generateParentheses.generateParenthesis3(5);
         System.out.println("耗时" + (System.currentTimeMillis() - start) / 1000 + "s");
 
         res.forEach(System.out::println);

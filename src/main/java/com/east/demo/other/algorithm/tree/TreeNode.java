@@ -112,6 +112,18 @@ public class TreeNode implements Serializable {
         }
     }
 
+    /**
+     * 高度
+     *
+     * @param node
+     * @return
+     */
+    public static int height(TreeNode node) {
+        if (node == null) return 0;
+        if (node.left == null && node.right == null) return 1;
+        return Math.max(height(node.left), height(node.right)) + 1;
+    }
+
     public static TreeNode simple() {
         TreeNode root = new TreeNode(1);
         root.left = new TreeNode(2);
@@ -181,6 +193,33 @@ public class TreeNode implements Serializable {
         root.left.right = new TreeNode(8);
         root.right.left = new TreeNode(12);
         root.right.right = new TreeNode(16);
+
+        return root;
+    }
+
+    public static TreeNode searchTree2() {
+        TreeNode root = new TreeNode(7);
+        root.left = new TreeNode(1);
+        root.right = new TreeNode(12);
+        root.left.left = new TreeNode(0);
+        root.left.right = new TreeNode(4);
+        root.left.right.left = new TreeNode(3);
+        root.left.right.right = new TreeNode(5);
+        root.right.left = new TreeNode(11);
+        root.right.right = new TreeNode(14);
+
+        return root;
+    }
+
+    public static TreeNode balanceTree() {
+        TreeNode root = new TreeNode(1);
+        root.left = new TreeNode(2);
+        root.right = new TreeNode(3);
+        root.left.left = new TreeNode(4);
+        // root.left.right = new TreeNode(8);
+        // root.right.left = new TreeNode(12);
+        root.right.right = new TreeNode(5);
+        root.right.right.left = new TreeNode(6);
 
         return root;
     }

@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * 子集问题
+ * 子集和问题
  *
  * @author: east
  * @date: 2023/12/28
