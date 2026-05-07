@@ -1,4 +1,4 @@
-package com.east.demo.other.algorithm.backtrace.list;
+package com.east.demo.other.algorithm.dfs.backtrace.list;
 
 import java.util.ArrayList;
 import java.util.Arrays;

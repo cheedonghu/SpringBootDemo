@@ -25,6 +25,7 @@ import com.east.demo.other.model.advanced.serializable.ClassWithSerializable;
 import com.east.demo.other.model.advanced.template.BaseResp;
 import com.east.demo.other.model.base.CommonClassA;
 import oracle.jdbc.OracleDriver;
+import org.slf4j.MDC;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -156,6 +157,7 @@ public class AdvancedInfoUsage {
         // 4. 通过completableFuture.runAsync开启新线程.  不加join()函数则顺序未知,加入后等待新线程全部执行
         CompletableFuture<Void> voidCompletableFuture = CompletableFuture.runAsync(() -> {
             // set MDC Info 这里还可以设置日志打印信息防止新线程日志杂乱
+            MDC.getCopyOfContextMap();
             CommonClassA.commonFun();
         });
         // 等所有future执行完毕
