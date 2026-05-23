@@ -46,9 +46,9 @@
         </dependency>
         <!--        oracle驱动-->
         <dependency>
-            <groupId>com.oracle</groupId>
+            <groupId>com.oracle.database.jdbc</groupId>
             <artifactId>ojdbc11</artifactId>
-            <version>23.2.0.0.0</version>
+            <version>23.3.0.23.09</version>
         </dependency>
         <!--hutool工具包-->
         <dependency>
@@ -141,13 +141,13 @@
                     </execution>
                 </executions>
                 <!--此处必须添加oracle驱动包-->
-                <dependencies>
-                    <dependency>
-                        <groupId>com.oracle</groupId>
-                        <artifactId>ojdbc11</artifactId>
-                        <version>23.2.0.0.0</version>
-                    </dependency>
-                </dependencies>
+<!--                <dependencies>-->
+<!--                    <dependency>-->
+<!--                        <groupId>com.oracle</groupId>-->
+<!--                        <artifactId>ojdbc11</artifactId>-->
+<!--                        <version>23.2.0.0.0</version>-->
+<!--                    </dependency>-->
+<!--                </dependencies>-->
             </plugin>
         </plugins>
     </build>
