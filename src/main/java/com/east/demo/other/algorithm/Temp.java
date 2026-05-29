@@ -1,7 +1,8 @@
 package com.east.demo.other.algorithm;
 
 import com.east.demo.other.algorithm.tree.TreeNode;
-import com.east.demo.other.algorithm.tree.TreeTraversal;
+
+import java.util.LinkedList;
 
 /**
  *
@@ -11,21 +12,28 @@ import com.east.demo.other.algorithm.tree.TreeTraversal;
 public class Temp {
 
 
-    public static TreeNode Mirror(TreeNode pRoot) {
-        // write code here
-        if (pRoot == null) return pRoot;
-        Mirror(pRoot.left);
-        Mirror(pRoot.right);
-        TreeNode temp = pRoot.left;
-        pRoot.left = pRoot.right;
-        pRoot.right = temp;
-        return pRoot;
+    public static boolean isCompleteTree(TreeNode root) {
+        LinkedList<TreeNode> deque = new LinkedList<>();
+        deque.offer(root);
+        boolean flag = false;
+        while (!deque.isEmpty()) {
+            TreeNode node = deque.poll();
+            if (node == null) flag = true;
+            else {
+                if (flag) {
+                    return false;
+                }
+                deque.offer(node.left);
+                deque.offer(node.right);
+            }
+        }
+        return true;
     }
 
 
     public static void main(String[] args) {
-        TreeTraversal treeTraversal = new TreeTraversal();
-        treeTraversal.levelOrder(Mirror(TreeNode.simple()));
+
+        System.out.println(isCompleteTree(TreeNode.completeTree2()));
     }
 
 

@@ -21,8 +21,9 @@ public class BinarySearchTree {
      * @return
      */
     // 不行，左左右子树还要和左根，根判断大小
-    public boolean isValidBST2(TreeNode root) {
+    public boolean isValidBST_HAS_PROBLEM(TreeNode root) {
         // write code here
+        // 这里代码不对！前序不行的，前序只能满足当前node的左右子树，后序结合最大值可以满足所有
         if (root == null) return true;
         if (root.left == null && root.right == null) return true; // 判断一个就行以二叉搜索树的定义
 
@@ -32,19 +33,42 @@ public class BinarySearchTree {
             return false;
         }
 
-        return isValidBST2(root.left) && isValidBST2(root.right);
+        return isValidBST_HAS_PROBLEM(root.left) && isValidBST_HAS_PROBLEM(root.right);
     }
 
     // 不行，还是失败，理解不了递归判断方法，32514案例过不了 [10,5,15,3,7,1,6]案例也过不了，但应该就是用个临时变量记录中序遍历时头上节点值，保证自己右子树要小于它? 草，真恶心
     private int leftMax = Integer.MAX_VALUE;
 
+    /**
+     * BST。二叉搜索树->中序
+     * 搞一个pre节点，中序遍历一遍，每次和pre节点判断要求cur>pre，每个都满足即可
+     *
+     * @param root
+     * @return
+     */
+    public static TreeNode pre;
+    public static boolean result = true;
     public boolean isValidBST3(TreeNode root) {
         // write code here
-        if (root == null) return true;
-        // if(root.left==null&&root.right==null) return true; // 判断一个就行以二叉搜索树的定义
+        dfs3(root);
 
-        // minorder(root,pre,)
-        return false;
+        return result;
+    }
+
+    private void dfs3(TreeNode node) {
+        if (node == null) return;
+        dfs3(node.left);
+
+        if (pre == null) {
+            // 最左下角
+            pre = node;
+        } else {
+            // 非中序第一个元素，则开始判断大小是否满足搜索树递增要求
+            if (node.value <= pre.value) result = false;
+            pre = node;
+        }
+
+        dfs3(node.right);
     }
 
     /**
@@ -77,7 +101,8 @@ public class BinarySearchTree {
     }
 
     public static void main(String[] args) {
-        TreeNode node = TreeNode.searchTree();
+        // TreeNode node = TreeNode.searchTree();
+        TreeNode node = TreeNode.simple();
 
         BinarySearchTree binarySearchTree = new BinarySearchTree();
         System.out.println(binarySearchTree.isValidBST3(node));

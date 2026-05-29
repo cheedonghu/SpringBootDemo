@@ -165,6 +165,44 @@ public class TreeTraversal {
         return result;
     }
 
+
+    private static int height(TreeNode root) {
+        if (root == null) return 0;
+        return 1 + Math.max(height(root.left), height(root.right));
+    }
+
+    /**
+     * 完整层序法：按完美二叉树结构层序打印，空的地方用#补全
+     * <p>
+     * 还是层序思路，打印自己，不过在往队列加入元素时，null也加入进去，取出来时特别处理
+     */
+    public ArrayList<ArrayList<String>> levelOrder3(TreeNode root) {
+        int height = height(root);
+
+        LinkedList<TreeNode> deque = new LinkedList<>();
+        deque.add(root);
+        for (int level = 0; level < height; level++) {
+            int size = deque.size();
+            StringBuilder sb = new StringBuilder();
+
+            for (int i = 0; i < size; i++) {
+                TreeNode node = deque.poll();
+                if (node != null) {
+                    sb.append(node.value);
+                    deque.offer(node.left);
+                    deque.offer(node.right);
+                } else {
+                    sb.append('#');
+                    deque.offer(null);   // 空節點的孩子也佔位,保證形狀完整
+                    deque.offer(null);
+                }
+                sb.append(' ');
+            }
+            System.out.println(sb);
+        }
+        return null;
+    }
+
     /**
      * 之字形打印，第一层从左到右，第二层从右到左->一个队列一个栈
      * 思路1：和层序类似，只需要将第二个工作队列换成栈,然后队列采用右左入栈，栈采用左右入队列

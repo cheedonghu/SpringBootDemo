@@ -57,7 +57,7 @@ public class EntryNodeOfLoop {
      * 快指针：每次走两步
      * 慢指针：每次走一步
      *
-     * 快指针到尾后，再次回到开头，直到慢指针到底结束？ 若有环，则快慢指针会相遇
+     * 按判断是否有环思路，找到相遇点（若quick遇null说明无环）。然后改为正常双指针，一个从相遇点开始，一个从头开始，再次相遇地方就是环入口（没提前刷题基本不可能在规定时间内 做出来
      */
     public ListNode entryNodeOfLoop(ListNode pHead) {
         if(pHead.next==null||pHead.next.next==null){

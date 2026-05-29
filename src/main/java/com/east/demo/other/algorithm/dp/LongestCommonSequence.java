@@ -12,7 +12,7 @@ public class LongestCommonSequence {
     /**
      * 解决办法：专门算法
      * 将s1和s2制表，计算dp表格，取左和上进行赋值
-     * dp[i][j]=max(dp[i-1][j],dp[i][j-1])+(s1==s2?1:0)
+     * dp[i][j]=s1==s2?dp[i-1][j-1]+1:max(dp[i-1][j],dp[i][j-1])
      * 最后从右下角反推最长路径
      * 当s1和s2字符一致，加入结果集，往左上跳转，若不一致往点数大的跳转，若点数一致网上跳转
      * 返回翻转后的结果集
@@ -28,7 +28,11 @@ public class LongestCommonSequence {
         }
         for (int i = 1; i <= m; i++) {
             for (int j = 1; j <= n; j++) {
-                dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - 1]) + (s1.charAt(i - 1) == s2.charAt(j - 1) ? 1 : 0);
+                if (s1.charAt(i - 1) == s2.charAt(j - 1)) {
+                    dp[i][j] = dp[i - 1][j - 1] + 1;
+                } else {
+                    dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - 1]);
+                }
             }
         }
 
