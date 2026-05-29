@@ -13,7 +13,9 @@ import java.util.List;
  */
 public class MST {
 
-    public static class Edge implements Comparable<Edge> {
+    public static class Edge
+            // implements Comparable<Edge>
+    {
         int u, v, w;
 
         public Edge(int u, int v, int w) {
@@ -85,10 +87,10 @@ public class MST {
          * @throws ClassCastException   if the specified object's type prevents it
          *                              from being compared to this object.
          */
-        @Override
-        public int compareTo(Edge o) {
-            return o.w;
-        }
+        // @Override
+        // public int compareTo(Edge o) {
+        //     return o.w;
+        // }
     }
 
     /**
@@ -108,8 +110,12 @@ public class MST {
 
         /**
          * 找到根
+         * parent[find(parent[x])]含义：
+         * parent[x]表示x的父节点（根节点）
+         * find(parent[x])表示递归查找父节点的父节点
+         * parent[ find(parent[x]) ] 表示最终父节点的父节点（其自己）
          */
-        public int find(int x) {
+        private int find(int x) {
             return parent[x] == x ? x : parent[find(parent[x])];
         }
 
@@ -129,7 +135,7 @@ public class MST {
                 return false;
             }
 
-            // y挂到x下。（能优化：判断高度）
+            // y挂到x下。（能优化：判断高度，挂到高的还是矮的来着？）
             parent[ry] = rx;
 
             return true;

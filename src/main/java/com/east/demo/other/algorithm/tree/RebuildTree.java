@@ -1,6 +1,6 @@
 package com.east.demo.other.algorithm.tree;
 
-import com.east.demo.other.algorithm.util.Util;
+import static com.east.demo.other.algorithm.util.Util.findIndex;
 
 /**
  * 重建树： 设置根节点，获取左子树的根位置然后设置左子树，获取右子树的根位置然后设置右子树；
@@ -16,6 +16,37 @@ import com.east.demo.other.algorithm.util.Util;
  * @date: 2023/12/1
  */
 public class RebuildTree {
+
+
+    public TreeNode rebuildByPreAndIn(int[] preOrder, int[] vinOrder) {
+        if (preOrder.length == 0) return new TreeNode();
+        TreeNode root = dfs2(preOrder, vinOrder, 0, preOrder.length - 1, 0, vinOrder.length - 1);
+
+        System.out.println("层序打印结果\n");
+        root.printSimpleTree();
+        return root;
+    }
+
+    private TreeNode dfs2(int[] preOrder, int[] vinOrder, int preLeft, int preRight, int inLeft, int inRight) {
+        if (preLeft > preRight || inLeft > inRight) {
+            return null;
+        }
+
+        TreeNode node = new TreeNode(preOrder[preLeft]);
+        // 找出左子树长度
+        Integer index = findIndex(vinOrder, node.value);
+        int l = index - inLeft;
+        // 计算右子树长度
+        int r = inRight - index;
+
+        // 左子树
+        node.left = dfs2(preOrder, vinOrder, preLeft + 1, preLeft + l, inLeft, index - 1);
+        node.right = dfs2(preOrder, vinOrder, preLeft + l + 1, preRight, index + 1, inRight);
+
+        return node;
+
+    }
+
 
     /**
      * 根据前序（根左右）和中序（左根右）遍历结果重建树（默认前提：节点值不同）。 分治
@@ -59,9 +90,9 @@ public class RebuildTree {
         // 初始化根节点
         TreeNode root = new TreeNode(preorder[i]);
         // 左子树 note：这里传入m时用到了i+1下标的元素，会导致数组越界。需要改为逻辑内获取而不是通过参数传入，因为当越界时l和m会提前阻断
-        root.left = dfs(preorder, inorder, i + 1, Util.findIndex(inorder, preorder[i + 1]), l, m - 1);
+        root.left = dfs(preorder, inorder, i + 1, findIndex(inorder, preorder[i + 1]), l, m - 1);
         // 右子树
-        root.right = dfs(preorder, inorder, i + 1 + m - l, Util.findIndex(inorder, preorder[i + 1 + m - l]), m + 1, r);
+        root.right = dfs(preorder, inorder, i + 1 + m - l, findIndex(inorder, preorder[i + 1 + m - l]), m + 1, r);
         return root;
     }
 
@@ -85,7 +116,7 @@ public class RebuildTree {
         TreeNode root = new TreeNode(preorder[i]);
 
         // 获取根节点在中序遍历数组中的下标从而确定左子树，右子树长度
-        int m = Util.findIndex(inorder, preorder[i]);
+        int m = findIndex(inorder, preorder[i]);
 
         // 左子树. 只能用m与l的相对位置，不能直接使用
         root.left = dfs(preorder, inorder, i + 1, l, m - 1);
@@ -126,7 +157,7 @@ public class RebuildTree {
         }
 
         // 获取根节点在中序列表中的下标 note: 搭配中序lr边界用来确定左右子树长度和子树的根节点位置
-        int m = Util.findIndex(inorder, postorder[i]);
+        int m = findIndex(inorder, postorder[i]);
 
         // 初始化根节点
         TreeNode node = new TreeNode(postorder[i]);
@@ -150,6 +181,8 @@ public class RebuildTree {
 //        rebuildTree.buildTree(preorder, inorder);
 
         // 中序后后序
-        rebuildTree.buildTreeByInAndPost(inorder2, postorder2);
+        // rebuildTree.buildTreeByInAndPost(inorder2, postorder2);
+
+        rebuildTree.rebuildByPreAndIn(preorder, inorder);
     }
 }

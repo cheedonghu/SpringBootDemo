@@ -1,7 +1,7 @@
 package com.east.demo.other.algorithm;
 
-import java.util.ArrayList;
-import java.util.Scanner;
+import com.east.demo.other.algorithm.tree.TreeNode;
+import com.east.demo.other.algorithm.tree.TreeTraversal;
 
 /**
  *
@@ -11,14 +11,22 @@ import java.util.Scanner;
 public class Temp {
 
 
-    public static void main(String[] args) {
-        ArrayList<String> flagA = new ArrayList<>();
-        Scanner in = new Scanner(System.in);
-        while (in.hasNextLine()) {
-            String s = in.nextLine();
-            flagA.add(s);
-        }
-
-        flagA.stream().sorted().forEach(System.out::println);
+    public static TreeNode Mirror(TreeNode pRoot) {
+        // write code here
+        if (pRoot == null) return pRoot;
+        Mirror(pRoot.left);
+        Mirror(pRoot.right);
+        TreeNode temp = pRoot.left;
+        pRoot.left = pRoot.right;
+        pRoot.right = temp;
+        return pRoot;
     }
+
+
+    public static void main(String[] args) {
+        TreeTraversal treeTraversal = new TreeTraversal();
+        treeTraversal.levelOrder(Mirror(TreeNode.simple()));
+    }
+
+
 }
